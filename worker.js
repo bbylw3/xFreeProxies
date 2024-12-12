@@ -256,32 +256,62 @@ const HTML_CONTENT = `<!DOCTYPE html>
             margin: 20px 0;
             font-size: 0.9em;
         }
+
+        /* 添加链接样式 */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #ffa533;  /* 鼠标悬停时颜色加深 */
+            text-decoration: underline;
+        }
+
+        .project-intro a {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .project-intro a:hover {
+            color: #ffa533;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            color: #ffa533;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1><span>Node</span><span>Hub</span></h1>
-            <p>Airport Free 节点导航服务</p>
+            <p>基于 blue2sea 的节点订阅导航</p>
         </header>
 
         <main>
             <div class="project-intro">
-                <h2>关于 Airport Free</h2>
-                <p>Airport Free 是一个免费机场节点收集项目，通过 GitHub Actions 自动更新。所有点均来自网络精选收集，每天定时更新并测试可用性，提供多种客户端订阅格式。</p>
+                <h2>关于 NodeHub</h2>
+                <p>NodeHub 是一个基于 <a href="https://blue2sea.com/order/querySubscriptionLink/%20" target="_blank">blue2sea</a> 的节点订阅服务导航项目。项目开源于 <a href="https://github.com/bq2015/FreeProxies" target="_blank">GitHub</a>，提供便捷的节点订阅服务。所有节点均来自 blue2sea 官方服务，定时更新并测试可用性。</p>
                 
                 <div class="features">
                     <div class="feature-item">
-                        <h4>每日更新</h4>
-                        <p>定时更新与测试</p>
+                        <h4>实时更新</h4>
+                        <p>每日自动更新</p>
                     </div>
                     <div class="feature-item">
-                        <h4>多种格式</h4>
-                        <p>支持主流客户端</p>
+                        <h4>多端支持</h4>
+                        <p>主流客户端全覆盖</p>
                     </div>
                     <div class="feature-item">
-                        <h4>节点精选</h4>
-                        <p>质量节点筛选</p>
+                        <h4>开源免费</h4>
+                        <p>GitHub 开源项目</p>
                     </div>
                 </div>
 
@@ -291,7 +321,8 @@ const HTML_CONTENT = `<!DOCTYPE html>
                 </div>
 
                 <div class="project-links">
-                    <a href="https://github.com/xiaoji235/airport-free" target="_blank">GitHub 仓库</a>
+                    <a href="https://github.com/bq2015/FreeProxies" target="_blank">GitHub 仓库</a>
+                    <a href="https://blue2sea.com/order/querySubscriptionLink/%20" target="_blank">订阅服务</a>
                 </div>
             </div>
 
@@ -320,7 +351,7 @@ const HTML_CONTENT = `<!DOCTYPE html>
         </main>
 
         <footer>
-            <p>数据来源：<a href="https://github.com/xiaoji235/airport-free" target="_blank">Airport Free</a></p>
+            <p>数据来源：<a href="https://blue2sea.com/order/querySubscriptionLink/%20" target="_blank">blue2sea</a> | 项目开源：<a href="https://github.com/bq2015/FreeProxies" target="_blank">GitHub</a></p>
         </footer>
     </div>
 
@@ -369,23 +400,22 @@ const HTML_CONTENT = `<!DOCTYPE html>
 // 添加获取订阅信息的函数
 async function getSubscriptionInfo() {
     try {
-        // 获取订阅信息
+        // 更新为正确的 API 地址
         const response = await fetch('https://blue2sea.com/order/querySubscriptionLink/%20');
         const data = await response.json();
         
         return {
             expireTime: data.expireTime || '2024-12-13 00:00:00',
             updateTime: '21:30',  // 固定更新时间
-            // 从响应中获取最新的订阅链接
-            subscriptionUrl: data.subscriptionUrl || 'https://blue2sea.com/clash/220c7cbad3d63c7bde4fe845e385a294'
+            subscriptionUrl: data.subscriptionUrl || 'https://blue2sea.com/order/querySubscriptionLink/%20'  // 更新默认订阅地址
         };
     } catch (error) {
         console.error('获取订阅信息失败:', error);
-        // 提供默认值作为后备
+        // 更新后备值中的订阅地址
         return {
             expireTime: '2024-12-13 00:00:00',
             updateTime: '21:30',
-            subscriptionUrl: 'https://blue2sea.com/clash/220c7cbad3d63c7bde4fe845e385a294'
+            subscriptionUrl: 'https://blue2sea.com/order/querySubscriptionLink/%20'  // 更新默认订阅地址
         };
     }
 }
@@ -404,8 +434,12 @@ async function handleRequest(request) {
     // 使用模板字符串替换HTML中的所有相关信息
     const updatedHTML = HTML_CONTENT
         .replace(
-            '<p>节点更新时间：每日 21:30</p>\n                    <p>节点有效期至：2024-12-13 00:00:00</p>',
-            `<p>节点更新时间：每日 ${subInfo.updateTime}</p>\n                    <p>节点有效期至：${subInfo.expireTime}</p>`
+            '<p>节点更新时间：每日 21:30</p>',
+            `<p>节点更新时间：每日 ${subInfo.updateTime}</p>`
+        )
+        .replace(
+            '<p>节点有效期至：2024-12-13 00:00:00</p>',
+            `<p>节点有效期至：${subInfo.expireTime}</p>`
         )
         // 替换所有订阅按钮的空链接为实际链接
         .replace(

@@ -1,12 +1,12 @@
 # NodeHub - 节点导航
 
-NodeHub 是一个基于 [blue2sea](https://blue2sea.com) 的节点订阅服务的导航界面，采用现代化设计风格，为用户提供便捷的节点订阅服务。项目使用 Cloudflare Workers 部署，无需服务器，一键部署即可使用。
+NodeHub 是一个基于 [blue2sea](https://blue2sea.com/order/querySubscriptionLink/) 的节点订阅服务的导航界面，采用现代化设计风格，为用户提供便捷的节点订阅服务。项目使用 Cloudflare Workers 部署，无需服务器，一键部署即可使用。
 
 🔗 项目地址：[https://github.com/bq2015/FreeProxies](https://github.com/bq2015/FreeProxies)
 
 ## 项目来源
 
-- 节点服务基于 [blue2sea](https://blue2sea.com) 提供的订阅服务
+- 节点服务基于 [blue2sea](https://blue2sea.com/order/querySubscriptionLink/) 提供的订阅服务
 - 项目代码开源于 [GitHub](https://github.com/bq2015/FreeProxies)
 - 实时获取最新的订阅链接和状态信息
 - 支持多种主流代理客户端
@@ -68,7 +68,7 @@ NodeHub 是一个基于 [blue2sea](https://blue2sea.com) 的节点订阅服务�
 
 - 前端：纯原生 HTML/CSS/JavaScript
 - 部署：Cloudflare Workers
-- 样��：自适应 CSS Grid/Flexbox
+- 样式：自适应 CSS Grid/Flexbox
 - 接口：实时订阅状态获取
 
 ## 免责声明
@@ -88,7 +88,7 @@ MIT License
 
 ## 相关项目
 
-- [blue2sea](https://blue2sea.com) - 节点订阅服务提供方
+- [blue2sea](https://blue2sea.com/order/querySubscriptionLink/) - 节点订阅服务提供方
 - [FreeProxies](https://github.com/bq2015/FreeProxies) - 节点更新服务
 
 ## 问题反馈
